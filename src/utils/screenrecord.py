@@ -3,13 +3,20 @@ import mss
 import cv2
 import numpy
 import keyboard
+import configparser
 
 from typing import Optional
 from objects import BoundingBox
+from settings import CONFIG_PATH_SETTINGS
 
 
 def screenrecord(img: numpy.ndarray = None, mon: BoundingBox = None) -> Optional[bool]:
     try:
+        config = configparser.ConfigParser()
+        config.read(CONFIG_PATH_SETTINGS)
+
+        map_redefinition = config.get('Keyboard', 'map_redefinition').lower()
+
         if img is not None:
             cv2.imshow('Tactical map', img)
             cv2.waitKey(25)
@@ -40,7 +47,7 @@ def screenrecord(img: numpy.ndarray = None, mon: BoundingBox = None) -> Optional
                 if keyboard.is_pressed('enter'):
                     cv2.destroyAllWindows()
                     return False
-                if keyboard.is_pressed('r'):
+                if keyboard.is_pressed(map_redefinition):
                     cv2.destroyAllWindows()
                     return True
 

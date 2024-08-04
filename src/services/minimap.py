@@ -8,6 +8,7 @@ from objects import Map, BoundingBox
 
 
 def detect_map(area, stability_threshold=5) -> Map or False:
+
     sct = mss.mss()
     minimap = Map()
 
@@ -17,7 +18,7 @@ def detect_map(area, stability_threshold=5) -> Map or False:
     bar = ['\\', '|', '/', '-']
     lk = 0
     mode = True
-    print('Наведетесь на небо чтобы мини карта была на синем фоне. Чтобы прервать нажмите "q"')
+    print('Наведетесь на небо чтобы мини карта была на синем фоне. Чтобы прервать нажмите "Esc"')
     while mode:
         print(f'Поиск карты {bar[lk]} ', end='\r')
 
@@ -84,7 +85,7 @@ def detect_map(area, stability_threshold=5) -> Map or False:
 
         cv2.imshow('Tactical map', img)
         cv2.waitKey(25)
-        if keyboard.is_pressed('q'):
+        if keyboard.is_pressed('esc'):
             cv2.destroyAllWindows()
             return False
 
