@@ -1,43 +1,62 @@
 
-import configparser
+import cv2
+import math
+import numpy
 
-from objects.data_classes import HSV
-from settings import CONFIG_PATH_OBJECTS, CONFIG_PATH_SETTINGS
+from typing import Optional
+from objects.data_classes import HSV, ObjectMap
+from settings.config import ObjectsConf, SettingsConf
 
 
-class Point:
+class Point(ObjectMap):
     def __init__(self):
-        self.x = None
-        self.y = None
-        self._config = configparser.ConfigParser()
-        self._config.read(CONFIG_PATH_OBJECTS)
+        super().__init__()
 
-        self.bgr = tuple(map(int, self._config.get('Point', 'bgr').split(', ')))
+        self.__config = ObjectsConf()
+        self.__settings = SettingsConf()
 
-    @staticmethod
-    def create_point():
-        config = configparser.ConfigParser()
-        config.read(CONFIG_PATH_SETTINGS)
-        point_type = config.get('Settings', 'point_type').lower()
-        if point_type == 'red':
-            return RedPoint()
-        elif point_type == 'yellow':
-            return YellowPoint()
+        self.bgr = self.__config.get_point(self.__settings.point_type)['bgr']
+        hsv_min = self.__config.get_point(self.__settings.point_type)['hsv_min']
+        hsv_max = self.__config.get_point(self.__settings.point_type)['hsv_max']
+
+        self.hsv = HSV(hsv_min, hsv_max)
+
+    def find_point(self, img: numpy.ndarray) -> Optional[tuple]:
+        h_min = numpy.array(self.hsv.min, numpy.uint8)
+        h_max = numpy.array(self.hsv.max, numpy.uint8)
+
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        thresh = cv2.inRange(hsv, h_min, h_max)
+
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (8, 8))
+        closed = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
+
+        contours, _ = cv2.findContours(closed, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        if contours:
+            largest_contour = max(contours, key=cv2.contourArea)
+
+            area = cv2.contourArea(largest_contour)
+            perimeter = cv2.arcLength(largest_contour, True)
+
+            if perimeter == 0:
+                return None
+
+            circularity = (4 * math.pi * area) / (perimeter * perimeter)
+
+            if circularity > 0.85:
+                m = cv2.moments(largest_contour)
+                if m["m00"] != 0:
+                    center_x = int(m["m10"] / m["m00"])
+                    center_y = int(m["m01"] / m["m00"])
+
+                    cv2.circle(img, (center_x, center_y), 1, self.bgr, 2)
+
+                    self.x = center_x
+                    self.y = center_y
+
+                return self.x, self.y
+            else:
+                return None
         else:
-            raise ValueError(f"Unknown point type: {point_type}")
-
-
-class RedPoint(Point):
-    def __init__(self):
-        super().__init__()
-        hsv_min = tuple(map(int, self._config.get('RedPoint', 'hsv_min').split(', ')))
-        hsv_max = tuple(map(int, self._config.get('RedPoint', 'hsv_max').split(', ')))
-        self.hsv = HSV(hsv_min, hsv_max)
-
-
-class YellowPoint(Point):
-    def __init__(self):
-        super().__init__()
-        hsv_min = tuple(map(int, self._config.get('YellowPoint', 'hsv_min').split(', ')))
-        hsv_max = tuple(map(int, self._config.get('YellowPoint', 'hsv_max').split(', ')))
-        self.hsv = HSV(hsv_min, hsv_max)
+            return None

@@ -12,19 +12,19 @@ ___
 
 ### Клонирование репозитория
 ```shell
-$ git clone https://github.com/Sh4565/WT-Distance-measurement.git
+git clone https://github.com/Sh4565/WT-Distance-measurement.git
 ```
 
 ### Установка зависимостей
 ```shell
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Компиляция
 Для начала нужно установить компилятор [MinGW64 v12.3](https://objects.githubusercontent.com/github-production-release-asset-2e65be/220996547/86825ef3-e192-47cb-a35b-6534c686ac07?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20240803%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240803T124102Z&X-Amz-Expires=300&X-Amz-Signature=27bcd64354dac92c70216813768d49896ab4dd45b5a1daa4c3e694120fcdae69&X-Amz-SignedHeaders=host&actor_id=77664190&key_id=0&repo_id=220996547&response-content-disposition=attachment%3B%20filename%3Dwinlibs-x86_64-posix-seh-gcc-12.3.0-llvm-16.0.4-mingw-w64ucrt-11.0.0-r1.7z&response-content-type=application%2Foctet-stream), 
 после чего нужно ввести такую команду:
 ```shell
-$ python -m nuitka --standalone --mingw64 --include-data-file=./config/config.cfg=config/config.cfg --include-data-file=./config/objects.cfg=config/objects.cfg --include-data-file=./errors.log=errors.log .\src\run.py
+python -m nuitka --standalone --mingw64 --include-data-file=./config/settings.cfg=config/settings.cfg --include-data-file=./config/objects.cfg=config/objects.cfg --include-data-file=./errors.log=errors.log .\src\run.py
 ```
 
 ## Использование

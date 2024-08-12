@@ -13,12 +13,12 @@ ___
 
 ### Cloning the repository
 ```shell
-$ git clone https://github.com/Sh4565/WT-Distance-measurement.git
+git clone https://github.com/Sh4565/WT-Distance-measurement.git
 ```
 
 ### Installing requirements
 ```shell
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Compilation
@@ -26,7 +26,7 @@ First, you need to install the [MinGW64 v12.3](https://objects.githubusercontent
 compiler, and then run the following command:
 
 ```shell
-$ python -m nuitka --standalone --mingw64 --include-data-file=./config/config.cfg=config/config.cfg --include-data-file=./config/objects.cfg=config/objects.cfg --include-data-file=./errors.log=errors.log .\src\run.py
+python -m nuitka --standalone --mingw64 --include-data-file=./config/settings.cfg=config/settings.cfg --include-data-file=./config/objects.cfg=config/objects.cfg --include-data-file=./errors.log=errors.log .\src\run.py
 ```
 
 ## Usage

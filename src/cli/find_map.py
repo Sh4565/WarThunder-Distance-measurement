@@ -4,20 +4,14 @@ import cv2
 import time
 import mouse
 import keyboard
-import configparser
 
 from utils import screenrecord
-from objects import BoundingBox
-from services.minimap import detect_map
-from settings import CONFIG_PATH_SETTINGS
+from objects import Map, BoundingBox
+from settings.config import KeyboardsConf
 
 
 def find_minimap(main_menu, menu_settings):
-    config = configparser.ConfigParser()
-    config.read(CONFIG_PATH_SETTINGS)
-
-    close_minimap = config.get('Keyboard', 'close_minimap').lower()
-    map_redefinition = config.get('Keyboard', 'map_redefinition').lower()
+    keyboards = KeyboardsConf()
 
     print('Нажмите сочетание клавиш Shift + Win + S и выделите карту (с зазорами)')
     keyboard.wait('shift+win+s')
@@ -27,7 +21,7 @@ def find_minimap(main_menu, menu_settings):
     left, top = None, None
 
     while True:
-        if keyboard.is_pressed(close_minimap):
+        if keyboard.is_pressed(keyboards.close_minimap):
             cv2.destroyAllWindows()
             menu_settings(main_menu)
 
@@ -48,19 +42,21 @@ def find_minimap(main_menu, menu_settings):
     mode = True
     while mode:
         mon = BoundingBox(top=top, left=left, width=bottom - top, height=right - left)
-        mini_map = detect_map(mon)
+        minimap = Map()
+        minimap.detect_map(mon)
+        # mini_map = detect_map(mon)
 
-        if mini_map:
+        if minimap:
             os.system('cls')
             print(f'''
 Проверьте успешность определения карты.
 Должно появиться окно вашей мини карты без зазоров.
-В случае если есть дефекты нажмите клавишу {map_redefinition} для повторного определения мини карты, или же повторите процедуру
-выделения.
+В случае если есть дефекты нажмите клавишу {keyboards.map_redefinition} для повторного определения мини карты, 
+или же повторите процедуру выделения.
 Для завершения просмотра и сохранения данных нажмите клавишу "Enter"
             ''')
 
-            mode = screenrecord(mon=mini_map.get)
+            mode = screenrecord(mon=minimap.get)
             if mode is None:
                 menu_settings(main_menu, title='Ошибка! Карта не найдена.')
         else:

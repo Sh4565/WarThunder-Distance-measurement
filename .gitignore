@@ -160,5 +160,4 @@ cython_debug/
 .idea/
 
 # свои директории
-run.build
-run.dist
+build

@@ -1,49 +1,24 @@
 
 import keyboard
-import configparser
 
 from pymenu import Menu
 from .find_map import find_minimap
-from settings import CONFIG_PATH_SETTINGS
+from settings.config import KeyboardsConf, SettingsConf
 
 
 type_key = None
 
 
 def choose_shooter(main_menu):
-    config = configparser.ConfigParser()
-    config.read(CONFIG_PATH_SETTINGS)
-
-    shooter_type = config.get('Settings', 'shooter_type')
-
-    if shooter_type == 'me':
-        config.set('Settings', 'shooter_type', 'ally')
-    elif shooter_type == 'ally':
-        config.set('Settings', 'shooter_type', 'me')
-    else:
-        config.set('Settings', 'shooter_type', 'me')
-
-    with open(CONFIG_PATH_SETTINGS, 'w') as f:
-        config.write(f)
+    config = SettingsConf()
+    config.next_shooter_type()
 
     menu_settings(main_menu)
 
 
 def choose_point(main_menu):
-    config = configparser.ConfigParser()
-    config.read(CONFIG_PATH_SETTINGS)
-
-    point_type = config.get('Settings', 'point_type')
-
-    if point_type == 'yellow':
-        config.set('Settings', 'point_type', 'red')
-    elif point_type == 'red':
-        config.set('Settings', 'point_type', 'yellow')
-    else:
-        config.set('Settings', 'point_type', 'yellow')
-
-    with open(CONFIG_PATH_SETTINGS, 'w') as f:
-        config.write(f)
+    config = SettingsConf()
+    config.next_point_type()
 
     menu_settings(main_menu)
 
@@ -51,8 +26,7 @@ def choose_point(main_menu):
 def set_keyboard(main_menu, menu_settings, settings_keyboard, type_key):
     print('Нажмите кнопку. Для отмены нажмите "Esc"')
 
-    config = configparser.ConfigParser()
-    config.read(CONFIG_PATH_SETTINGS)
+    keyboards = KeyboardsConf()
 
     while True:
         if keyboard.is_pressed('esc'):
@@ -60,20 +34,24 @@ def set_keyboard(main_menu, menu_settings, settings_keyboard, type_key):
 
         event = keyboard.read_event()
         if event.event_type == keyboard.KEY_DOWN and event.name != 'esc':
-            config.set('Keyboard', type_key, event.name)
-            with open(CONFIG_PATH_SETTINGS, 'w') as f:
-                config.write(f)
+            if type_key == 'map_redefinition':
+                keyboards.set_map_redefinition(event.name)
+            if type_key == 'close_minimap':
+                keyboards.set_close_minimap(event.name)
+            if type_key == 'update_data':
+                keyboards.set_update_data(event.name)
+            if type_key == 'calculating_distance':
+                keyboards.set_calculating_distance(event.name)
             settings_keyboard(main_menu, menu_settings)
 
 
 def settings_keyboard(main_menu, menu_settings):
-    config = configparser.ConfigParser()
-    config.read(CONFIG_PATH_SETTINGS)
+    keyboards = KeyboardsConf()
 
-    map_redefinition = config.get('Keyboard', 'map_redefinition').lower()
-    close_minimap = config.get('Keyboard', 'close_minimap').lower()
-    update_data = config.get('Keyboard', 'update_data').lower()
-    calculating_distance = config.get('Keyboard', 'calculating_distance').lower()
+    map_redefinition = keyboards.map_redefinition
+    close_minimap = keyboards.close_minimap
+    update_data = keyboards.update_data
+    calculating_distance = keyboards.calculating_distance
 
     menu = Menu('')
     menu.add_option(f"Переопределение карты: {map_redefinition}",
@@ -89,16 +67,12 @@ def settings_keyboard(main_menu, menu_settings):
 
 
 def menu_settings(main_menu, title: str = ''):
-    config = configparser.ConfigParser()
-    config.read(CONFIG_PATH_SETTINGS)
-
-    point_type = config.get('Settings', 'point_type')
-    shooter_type = config.get('Settings', 'shooter_type')
+    config = SettingsConf()
 
     menu = Menu(title)
     menu.add_option("Ручное определение местоположения мини карты", lambda: find_minimap(main_menu, menu_settings))
-    menu.add_option(f"Стрелок: {shooter_type}", lambda: choose_shooter(main_menu))
-    menu.add_option(f"Цель: {point_type}", lambda: choose_point(main_menu))
+    menu.add_option(f"Стрелок: {config.shooter_type}", lambda: choose_shooter(main_menu))
+    menu.add_option(f"Цель: {config.point_type}", lambda: choose_point(main_menu))
     menu.add_option("Клавиатура", lambda: settings_keyboard(main_menu, menu_settings))
     menu.add_option("Назад", lambda: main_menu())
     menu.show()
