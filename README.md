@@ -1,6 +1,6 @@
 
 # 
-# WT-Distance Measurement
+# WarThunder-Distance-measurement
 
 [![EN](https://img.shields.io/badge/lang-EN-blue.svg)](docs/en.md)
 [![RU](https://img.shields.io/badge/lang-RU-red.svg)](docs/ru.md)
