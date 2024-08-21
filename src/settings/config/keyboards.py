@@ -44,4 +44,3 @@ class KeyboardsConf:
         self.__config.set('Keyboard', 'calculating_distance', key)
         with open(CONFIG_PATH_SETTINGS, 'w') as f:
             self.__config.write(f)
-

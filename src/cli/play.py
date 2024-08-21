@@ -1,20 +1,21 @@
 
 import os
-import time
-
 import cv2
 import mss
+import time
 import numpy
 import keyboard
 
-from utils import screenrecord
 from objects import Map, Shooter, Point
+from utils.screenrecord import screenrecord
 from settings.config import SettingsConf, KeyboardsConf
 
 
 def play(main_menu):
     config = SettingsConf()
     keyboards = KeyboardsConf()
+
+    _ = config.lang
 
     minimap = Map()
     shooter = Shooter()
@@ -23,8 +24,8 @@ def play(main_menu):
     size_square_px, size_square_m = minimap.size_square_update
     sct = mss.mss()
 
-    print(f'Размер квадрата: {int(size_square_m)}x{int(size_square_m)}')
-    print(f'Дистанция до цели:  ', end='\r')
+    print(_('Размер квадрата: {size_square_m}x{size_square_m}').format(size_square_m=int(size_square_m)))
+    print(_('Дистанция до цели:  '), end='\r')
 
     start_time = 0
     current_time = 0
@@ -44,7 +45,7 @@ def play(main_menu):
             minimap.display_distance(img, shooter, point, distance)
             # distance = distance_calculation(shooter, point, img, minimap)
             spaces = ' ' * 8
-            print(f'Дистанция до цели: {distance} {spaces}', end='\r')
+            print(_('Дистанция до цели: {distance} {spaces}').format(distance=distance, spaces=spaces), end='\r')
         #
         # if current_time - start_time <= config.delay:
         #     shooter.find_shooter(img)
@@ -62,16 +63,16 @@ def play(main_menu):
 
         if keyboard.is_pressed(keyboards.update_data):
             os.system('cls')
-            print('Обновляю данные ...')
+            print(_('Обновляю данные ...'))
             size_square_px, size_square_m = minimap.size_square_update
             os.system('cls')
-            print(f'Размер квадрата: {int(size_square_m)}x{int(size_square_m)}')
+            print(_('Размер квадрата: {size_square_m}x{size_square_m}').format(size_square_m=int(size_square_m)))
             spaces = ' ' * 8
-            print(f'Дистанция до цели: {spaces}', end='\r')
+            print(_('Дистанция до цели: {spaces}').format(spaces=spaces), end='\r')
 
         mode = screenrecord(img=img)
         if mode is None:
             cv2.destroyAllWindows()
-            main_menu(title='Ошибка! Карта не найдена.')
+            main_menu(title=_('Ошибка! Карта не найдена.'))
 
         current_time = time.time()

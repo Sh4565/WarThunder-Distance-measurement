@@ -1,0 +1,169 @@
+# Russian translations for PACKAGE package
+# ���������� �������� ��� ������ PACKAGE.
+# Copyright (C) 2024 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-21 17:17+0300\n"
+"PO-Revision-Date: 2024-08-21 17:17+0300\n"
+"Last-Translator: <EMAIL@ADDRESS>\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\find_map.py:17
+msgid "Нажмите сочетание клавиш Shift + Win + S и выделите карту (с зазорами)"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\find_map.py:52
+#, python-brace-format
+msgid ""
+"\n"
+"Проверьте успешность определения карты.\n"
+"Должно появиться окно вашей мини-карты без зазоров.\n"
+"В случае, если есть дефекты, нажмите клавишу {keyboards.map_redefinition} "
+"для повторного определения мини-карты, \n"
+"или же повторите процедуру выделения.\n"
+"Для завершения просмотра и сохранения данных нажмите клавишу \"Enter\"\n"
+"            "
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\find_map.py:62 measurement\src\cli\play.py:76
+msgid "Ошибка! Карта не найдена."
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\find_map.py:66
+msgid "Карта успешно найдена!"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\main.py:13
+msgid "Игра"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\main.py:14
+msgid "Настройки"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\main.py:15
+msgid "Выход"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\play.py:27 measurement\src\cli\play.py:69
+#, python-brace-format
+msgid "Размер квадрата: {size_square_m}x{size_square_m}"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\play.py:28
+msgid "Дистанция до цели:  "
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\play.py:48
+#, python-brace-format
+msgid "Дистанция до цели: {distance} {spaces}"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\play.py:66
+msgid "Обновляю данные ..."
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\play.py:71
+#, python-brace-format
+msgid "Дистанция до цели: {spaces}"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:13
+msgid "Выберите язык"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:14
+msgid "English"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:15
+msgid "Русский"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:16
+msgid "Українська"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:18
+#: measurement\src\cli\settings_menu.py:81
+#: measurement\src\cli\settings_menu.py:95
+msgid "Назад"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:43
+msgid "Для отмены нажмите \"Esc\""
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:73
+msgid "Переопределение карты: "
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:75
+msgid "Закрыть окно мини-карты: "
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:77
+msgid "Обновить данные: "
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:79
+msgid "Вычисление дистанции: "
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:90
+msgid "Ручное определение местоположения мини-карты"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:91
+msgid "Стрелок: "
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:92
+msgid "Цель: "
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:93
+msgid "Клавиатура"
+msgstr ""
+
+#: C:\Users\Dmitriy\Documents\Portfolio\WT Distance
+#: measurement\src\cli\settings_menu.py:94
+msgid "Язык"
+msgstr ""

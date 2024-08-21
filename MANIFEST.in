@@ -1,0 +1,7 @@
+
+recursive-include config *.cfg
+recursive-include locales *.mo
+
+include README.md
+include LICENSE
+
